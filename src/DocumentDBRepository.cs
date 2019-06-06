@@ -23,6 +23,7 @@ namespace todo
             try
             {
                 Document document =
+                    //await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id));
                     await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id), new RequestOptions { PartitionKey = new PartitionKey(category) });
                 return (T)(dynamic)document;
             }
@@ -113,6 +114,7 @@ namespace todo
         {
             try
             {
+                //await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId));
                 await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new RequestOptions { PartitionKey = new PartitionKey(partitionkey) });
             }
             catch (DocumentClientException e)
@@ -128,7 +130,7 @@ namespace todo
                                 {
                                     Paths = new System.Collections.ObjectModel.Collection<string>(new List<string>() { partitionkey })
                                 }
-                            },
+                        },
                         new RequestOptions { OfferThroughput = 400 });
                 }
                 else
